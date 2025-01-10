@@ -1,16 +1,17 @@
 // Import required modules
-import 'dotenv/config';
+import dotenv from 'dotenv';
 import express from 'express';
 import cookieParser from 'cookie-parser';
 import cors from 'cors';
-import {errorHandler, notFound} from './src/middleware/errorHandler.js';
-import connectDb from './src/utils/connectDb.js';
-import userRoutes from './src/auth/users/userRoutes.js';
+import {errorHandler, notFound} from './middleware/errorHandler.js';
+import connectDb from './utils/connectDb.js';
+import userRoutes from './auth/users/userRoutes.js'
 import asyncHandler from "express-async-handler";
+dotenv.config();
 const PORT = process.env.PORT || 6008;
 // Initialize the Express application
 const app = express();
-
+dotenv.config();
 
 // Middleware
 app.use(express.json());

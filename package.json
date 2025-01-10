@@ -1,12 +1,14 @@
 {
-  "name": "api",
+  "name": "sick-bay-pharma",
   "version": "1.0.0",
-  "description": "a fullstack pharmacy ecommerce project ",
+  "description": "drug store ecommerce",
   "main": "server.js",
   "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon server.js"
+    "dev" : "nodemon api/server.js",
+    "start" : "node api/server.js"
+
   },
   "author": "Fouzia Oreen",
   "license": "ISC",
@@ -19,7 +21,7 @@
     "express-async-handler": "^1.2.0",
     "joi": "^17.13.3",
     "jsonwebtoken": "^9.0.2",
-    "mongoose": "^8.9.3",
+    "mongoose": "^8.9.4",
     "nodemon": "^3.1.9"
   }
 }
