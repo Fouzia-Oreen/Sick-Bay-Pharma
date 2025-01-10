@@ -1,42 +1,23 @@
-import User from "./usersModel.js";
+import bcrypt from "bcryptjs";
 import asyncHandler from "express-async-handler";
+import User from "./usersModel.js";
 
 /* register the user 
    #desc    Authenticate the user and set the token
    #route   POST /api/users/register
    #access   Public
 */
-export const userRegister = asyncHandler(async (req, res) => {   
-
+export const userRegister = async (req, res, next) => {     
+    const { username, email, password } = req.body;
+    const hashedPassword = bcrypt.hashSync(password, 10);
+    const newUser = new User({ username, email, password: hashedPassword });
     try {
-        const { username, email, password , profile} = req.body;
-        if (!username ||!email ||!password ||!profile) {
-             const error = new Error('All fields must be filled out');
-             error.statusCode = 400;
-             throw error;
-        }
-       const formateName = username.toLowercase()
-       const formateEmail = email.toLowercase()
-       const existingUser = await User.findOne({ email: formateEmail });
-       if (existingUser) {
-            const error = new Error('User already exists');
-            error.statusCode = 409;
-            throw error;
-        }
-        const hashedPassword = await bcrypt.hash(password, 12);
-        const newUser = new User({
-            username: formateName,
-            email: formateEmail,
-            password: hashedPassword,
-            profile: profile,
-        });
-        await newUser.save();
-        res.status(201).json({ message: 'User registered successfully', status:true });
-
-    } catch {
-        res.status(500).json({ message: 'Failed to register user', status:false });
+      await newUser.save();
+      res.status(201).json({ message: 'User created successfully' });
+    } catch (error) {
+      next(error);
     }
-})
+}
 /* logout the user 
    #desc    Logout user
    #route   POST /api/users/logout

@@ -6,9 +6,8 @@
   "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev" : "nodemon api/server.js",
-    "start" : "node api/server.js"
-
+    "dev": "nodemon api/server.js",
+    "start": "node api/server.js"
   },
   "author": "Fouzia Oreen",
   "license": "ISC",
@@ -22,6 +21,7 @@
     "joi": "^17.13.3",
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.9.4",
-    "nodemon": "^3.1.9"
+    "nodemon": "^3.1.9",
+    "path": "^0.12.7"
   }
 }

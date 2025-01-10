@@ -5,7 +5,7 @@ import { getTheUser, updateUserProfile } from "./usersController.js"
 const router = express.Router()
 
 // Define endpoints for authentication routes
-router.post('/register', userRegister)
+router.post('/signup', userRegister)
 router.post('/register-mail', registerMail)
 router.post('/authenticate', userAuthenticate)
 router.post('/login', userLogin)

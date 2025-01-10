@@ -1,5 +1,6 @@
 import User from "./usersModel.js";
 import asyncHandler from "express-async-handler";
+import bcrypt from "bcryptjs"
 
 
 

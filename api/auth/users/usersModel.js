@@ -4,18 +4,18 @@ import mongoose from "mongoose";
 const userSchema = new mongoose.Schema({
     username: {
         type: String,
-        required: [true, "Please provide a valid username"],
+        required:true,
         trim: true
     },
     email: {
         type: String,
-        required: [true, "Please provide a valid email"],
+        required:true,
         unique: true,
         trim: true
     },
     password: {
         type: String,
-        required: [true, "Please provide a valid password"],
+        required:true,
     },
     role: 
     {    type: String, 
@@ -36,10 +36,6 @@ const userSchema = new mongoose.Schema({
     profile: {    
         type: String, 
     },
-    createdAt: {
-        type: Date,
-        default: Date.now
-    }
 }, {timeStamps: true});
 
 const User =  mongoose.model.Users || mongoose.model('User', userSchema);
