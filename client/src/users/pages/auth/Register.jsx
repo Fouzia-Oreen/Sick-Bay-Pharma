@@ -1,13 +1,13 @@
  
 import React, { useState } from 'react';
 import { FcGoogle } from 'react-icons/fc';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const Register = () => {
   const [formData, setFormData] = useState({});
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
-
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     e.preventDefault();
@@ -34,7 +34,7 @@ const Register = () => {
                 setError(true); 
                 return
             }          
-            
+            navigate('/login')
         } catch (error) {
         setLoading(false);
         setError(true);
@@ -114,7 +114,7 @@ const Register = () => {
                   disabled={loading}
                   className="w-full bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-1"
                   >
-                  { loading ? "Sining Up....." :  "Sign Up"}
+                  { loading ? "Loading..." :  "Sign Up"}
               </button>
           </form>
   

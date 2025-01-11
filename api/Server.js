@@ -29,7 +29,6 @@ app.use(cookieParser());
 app.use("/api/users",userRoutes)
 
 /* ERROR HANDLER */
-
 app.use((err, req, res, next) => {
     const statusCode = err.statusCode || 500;
     const message = err.message || 'Internal Server Error';

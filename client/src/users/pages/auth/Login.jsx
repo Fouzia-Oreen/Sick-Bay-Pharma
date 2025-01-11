@@ -1,9 +1,12 @@
 import React, { useState } from 'react';
 import { FcGoogle } from 'react-icons/fc';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const Login = () => {
   const [formData, setFormData] = useState({});
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(false);
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     e.preventDefault();
@@ -11,11 +14,30 @@ const Login = () => {
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const res = await fetch('/api/users/login', formData)
-    const data = res.json()
-    console.log(data)
-    
-  };
+    try {
+        setLoading(true);
+        setError(false); 
+        const res = await fetch('/api/users/signin', {
+            method: 'POST',
+            headers: {
+            'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(formData),
+        });
+        const data = await res.json();
+        console.log(data); 
+        setLoading(false);
+        if (data.success === false) {
+            setError(true); 
+            return
+        }          
+        navigate('/')
+    } catch (error) {
+    setLoading(false);
+    setError(true);
+     console.log(error)
+    }
+};
 
   const handleGoogleLogin = () => {
     // Implement Google OAuth login here
@@ -31,7 +53,7 @@ const Login = () => {
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100">
       <div className="bg-white p-8 rounded-lg shadow-md w-96">
-        <h2 className="text-2xl font-bold text-center text-gray-800 mb-4"> Login</h2>
+        <h2 className="text-2xl font-bold text-center text-gray-800 mb-4"> Sign In</h2>
 
         <form onSubmit={handleSubmit}>
             {/* email */}
@@ -74,7 +96,7 @@ const Login = () => {
                 type="submit"
                 className="w-full bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-1"
                 >
-                Login
+                {loading ? "Loading..." : "Sign In"}
             </button>
         </form>
 
@@ -99,6 +121,7 @@ const Login = () => {
             Sign Up
           </Link>
         </p>
+        <p className='text-red-600 pt-5 text-center'>{error && "Something went wrong!"}</p>
       </div>
     </div>
   );
